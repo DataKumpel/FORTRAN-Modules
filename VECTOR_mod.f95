@@ -1,14 +1,14 @@
 
 !----- CONSTRUCTS -----------------------------------------------------------------------------!
 TYPE :: VECTOR_TEMPLATE
-	TEMPLATE, DIMENSION(:), ALLOCATABLE :: vals_
-	INTEGER                             :: size_
-	INTEGER                             :: capacity_
+    TEMPLATE, DIMENSION(:), ALLOCATABLE :: vals_
+    INTEGER                             :: size_
+    INTEGER                             :: capacity_
 END TYPE
 !----- CONSTRUCTS -----------------------------------------------------------------------------!
 
 CONTAINS
-	!----- MODULE SUBROUTINES -----------------------------------------------------------------!
+    !----- MODULE SUBROUTINES -----------------------------------------------------------------!
     SUBROUTINE ASSIGN_CONTENT( this, new_size_, content_ )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
@@ -41,52 +41,52 @@ CONTAINS
     END SUBROUTINE
     !..........................................................................................!
     SUBROUTINE PUSH_BACK( this, val_ )
-		IMPLICIT NONE
-		!----- VARIABLES ----------------------------------------------------------------------!
-		TYPE(VECTOR_TEMPLATE), INTENT(INOUT) :: this
-		TEMPLATE             , INTENT(IN)    :: val_
-		!----- INTERNALS ----------------------------------------------------------------------!
-		TEMPLATE, DIMENSION(:), ALLOCATABLE  :: vals_realloc
-		INTEGER                              :: alloc_stat
-		INTEGER                              :: i
-		!----- VARIABLES ----------------------------------------------------------------------!
-		
+        IMPLICIT NONE
+        !----- VARIABLES ----------------------------------------------------------------------!
+        TYPE(VECTOR_TEMPLATE), INTENT(INOUT) :: this
+        TEMPLATE             , INTENT(IN)    :: val_
+        !----- INTERNALS ----------------------------------------------------------------------!
+        TEMPLATE, DIMENSION(:), ALLOCATABLE  :: vals_realloc
+        INTEGER                              :: alloc_stat
+        INTEGER                              :: i
+        !----- VARIABLES ----------------------------------------------------------------------!
+        
         ! check for reallocation event:
-		IF( this%size_ >= this%capacity_ ) THEN
-			this%capacity_ = this%capacity_ * 2
-			
-			ALLOCATE( vals_realloc(this%capacity_), STAT = alloc_stat )
-			
-			IF( alloc_stat /= 0 ) THEN
-				WRITE(*, "(A)") "ERROR: in subroutine PUSH_BACK: Allocation of vals_realloc &
+        IF( this%size_ >= this%capacity_ ) THEN
+            this%capacity_ = this%capacity_ * 2
+            
+            ALLOCATE( vals_realloc(this%capacity_), STAT = alloc_stat )
+            
+            IF( alloc_stat /= 0 ) THEN
+                WRITE(*, "(A)") "ERROR: in subroutine PUSH_BACK: Allocation of vals_realloc &
                 &failed!"
-				RETURN
-			ENDIF
-			
-			! copy all values from the vector:
-			DO i = 1, this%size_
-				vals_realloc(i) = this%vals_(i)
-			ENDDO
-			
-			this%size_ = this%size_ + 1
-			vals_realloc(this%size_) = val_
-			
-			DEALLOCATE( this%vals_ )
-			ALLOCATE  ( this%vals_(this%capacity_), STAT = alloc_stat )
-			
-			IF( alloc_stat /= 0 ) THEN
-				WRITE(*, "(A)") "ERROR: in subroutine PUSH_BACK: Reallocation of VECTOR failed!"
+                RETURN
+            ENDIF
+            
+            ! copy all values from the vector:
+            DO i = 1, this%size_
+                vals_realloc(i) = this%vals_(i)
+            ENDDO
+            
+            this%size_ = this%size_ + 1
+            vals_realloc(this%size_) = val_
+            
+            DEALLOCATE( this%vals_ )
+            ALLOCATE  ( this%vals_(this%capacity_), STAT = alloc_stat )
+            
+            IF( alloc_stat /= 0 ) THEN
+                WRITE(*, "(A)") "ERROR: in subroutine PUSH_BACK: Reallocation of VECTOR failed!"
                 DEALLOCATE( vals_realloc )
-				RETURN
-			ENDIF
-			
-			this%vals_ = vals_realloc
+                RETURN
+            ENDIF
+            
+            this%vals_ = vals_realloc
             DEALLOCATE( vals_realloc )
-		ELSE
-			this%size_ = this%size_ + 1
-			this%vals_(this%size_) = val_
-		ENDIF
-	END SUBROUTINE
+        ELSE
+            this%size_ = this%size_ + 1
+            this%vals_(this%size_) = val_
+        ENDIF
+    END SUBROUTINE
     !..........................................................................................!
     SUBROUTINE POP_BACK( this )
         IMPLICIT NONE
