@@ -9,7 +9,7 @@ END TYPE
 
 CONTAINS
     !----- MODULE SUBROUTINES -----------------------------------------------------------------!
-    SUBROUTINE ASSIGN_CONTENT( this, new_size_, content_ )
+    SUBROUTINE VEC_ASSIGN_CONTENT( this, new_size_, content_ )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         TYPE(VECTOR_TEMPLATE), INTENT(INOUT) :: this
@@ -40,7 +40,7 @@ CONTAINS
         ENDDO
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE PUSH_BACK( this, val_ )
+    SUBROUTINE VEC_PUSH_BACK( this, val_ )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         TYPE(VECTOR_TEMPLATE), INTENT(INOUT) :: this
@@ -88,7 +88,7 @@ CONTAINS
         ENDIF
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE POP_BACK( this )
+    SUBROUTINE VEC_POP_BACK( this )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         TYPE(VECTOR_TEMPLATE), INTENT(INOUT) :: this
@@ -99,7 +99,7 @@ CONTAINS
         this%size_ = this%size_ - 1
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE INSERT( this, val_, at_ )
+    SUBROUTINE VEC_INSERT( this, val_, at_ )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         TYPE(VECTOR_TEMPLATE), INTENT(INOUT) :: this
@@ -156,7 +156,7 @@ CONTAINS
         ENDIF
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE ERASE( this, at_ )
+    SUBROUTINE VEC_ERASE( this, at_ )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -165,7 +165,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE SWAP( this, other )
+    SUBROUTINE VEC_SWAP( this, other )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -174,7 +174,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE CLEAR( this )
+    SUBROUTINE VEC_CLEAR( this )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -183,7 +183,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE RESIZE( this, new_capacity )
+    SUBROUTINE VEC_RESIZE( this, new_capacity )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -192,7 +192,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END SUBROUTINE
     !..........................................................................................!
-    LOGICAL FUNCTION EMPTY( this )
+    LOGICAL FUNCTION VEC_EMPTY( this )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -201,7 +201,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END FUNCTION
     !..........................................................................................!
-    SUBROUTINE RESERVE( this, new_capacity )
+    SUBROUTINE VEC_RESERVE( this, new_capacity )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -210,7 +210,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END SUBROUTINE
     !..........................................................................................!
-    SUBROUTINE SHRINK_TO_FIT( this )
+    SUBROUTINE VEC_SHRINK_TO_FIT( this )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -219,7 +219,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END SUBROUTINE
     !..........................................................................................!
-    TEMPLATE FUNCTION FRONT( this )
+    TEMPLATE FUNCTION VEC_FRONT( this )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -228,7 +228,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END FUNCTION
     !..........................................................................................!
-    TEMPLATE FUNCTION BACK( this )
+    TEMPLATE FUNCTION VEC_BACK( this )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         
@@ -237,7 +237,7 @@ CONTAINS
         !----- VARIABLES ----------------------------------------------------------------------!
     END FUNCTION
     !..........................................................................................!
-    TEMPLATE FUNCTION AT( this, at_ )
+    TEMPLATE FUNCTION VEC_AT( this, at_ )
         IMPLICIT NONE
         !----- VARIABLES ----------------------------------------------------------------------!
         

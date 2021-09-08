@@ -25,7 +25,7 @@ END TYPE
 
 CONTAINS
     !----- MODULE SUBROUTINES ---------------------------------------------------------------------!
-    SUBROUTINE NEW_NODE(pNode, init_val, iReturn)
+    SUBROUTINE NEW_NODE( pNode, init_val, iReturn )
         IMPLICIT NONE
         !----- VARIABLES --------------------------------------------------------------------------!
         TYPE(NODE_TEMPLATE), POINTER, INTENT(INOUT) :: pNode
@@ -37,18 +37,18 @@ CONTAINS
         
         iReturn = 0 ! And stays 0 if everything went alright...
         
-        IF(ASSOCIATED(pNode)) THEN
-            DEALLOCATE(pNode, STAT = alloc_stat)
-            IF(alloc_stat /= 0) THEN
+        IF( ASSOCIATED(pNode) ) THEN
+            DEALLOCATE( pNode, STAT = alloc_stat )
+            IF( alloc_stat /= 0 ) THEN
                 iReturn = -1
                 RETURN
             ENDIF
             pNode => NULL()
         ENDIF
         
-        ALLOCATE(pNode, STAT = alloc_stat)
+        ALLOCATE( pNode, STAT = alloc_stat )
         
-        IF(alloc_stat /= 0) THEN
+        IF( alloc_stat /= 0 ) THEN
             iReturn = 1
             RETURN
         ENDIF
