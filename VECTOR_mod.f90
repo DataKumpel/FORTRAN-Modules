@@ -329,31 +329,31 @@ CONTAINS
         INTEGER              , INTENT(IN)    :: new_capacity
         !----- INTERNALS ----------------------------------------------------------------------!
         TEMPLATE, DIMENSION(:), ALLOCATABLE  :: vals_copy
-		INTEGER                              :: alloc_stat
+        INTEGER                              :: alloc_stat
         !----- VARIABLES ----------------------------------------------------------------------!
         
-		! There is nothing to reserve if the new capacity is equal or lower than the current
-		! capacity...
+        ! There is nothing to reserve if the new capacity is equal or lower than the current
+        ! capacity...
         IF( new_capacity <= this%capacity_ ) RETURN
-		
-		! Check for reallocation:
-		IF( this%size_ /= 0 ) THEN
-			ALLOCATE( vals_copy(new_capacity), STAT = alloc_stat )
-			IF( alloc_stat /= 0 ) THEN
-				WRITE( *, "(A)" ) "ERROR: in subroutine VEC_RESERVE: Allocation of vals_copy &
-				&failed!"
-				RETURN
-			ENDIF
-			
-		ELSE
-			ALLOCATE( this%vals_(new_capacity), STAT = alloc_stat )
-			IF( alloc_stat /= 0 ) THEN
-				WRITE( *, "(A)" ) "ERROR: in subroutine VEC_RESERVE: Allocation of this%vals_ &
-				&failed!"
-				RETURN
-			ENDIF
-			this%capacity_ = new_capacity
-		ENDIF
+        
+        ! Check for reallocation:
+        IF( this%size_ /= 0 ) THEN
+            ALLOCATE( vals_copy(new_capacity), STAT = alloc_stat )
+            IF( alloc_stat /= 0 ) THEN
+                WRITE( *, "(A)" ) "ERROR: in subroutine VEC_RESERVE: Allocation of vals_copy &
+                &failed!"
+                RETURN
+            ENDIF
+            
+        ELSE
+            ALLOCATE( this%vals_(new_capacity), STAT = alloc_stat )
+            IF( alloc_stat /= 0 ) THEN
+                WRITE( *, "(A)" ) "ERROR: in subroutine VEC_RESERVE: Allocation of this%vals_ &
+                &failed!"
+                RETURN
+            ENDIF
+            this%capacity_ = new_capacity
+        ENDIF
     END SUBROUTINE
     !..........................................................................................!
     SUBROUTINE VEC_SHRINK_TO_FIT( this )
