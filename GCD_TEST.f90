@@ -7,6 +7,14 @@ PROGRAM MAIN
 	INTEGER, DIMENSION(:), ALLOCATABLE :: vals
 	CHARACTER(LEN = 32)                :: val_in
 	
+	INTERFACE
+		FUNCTION FIND_GCD( nums, numsSize ) RESULT( res )
+			INTEGER                      , INTENT(IN) :: numsSize
+			INTEGER, DIMENSION(numsSize) , INTENT(IN) :: nums
+			INTEGER                                   :: res
+		END FUNCTION
+	END INTERFACE
+	
 	num_vals = IARGC()
 	
 	IF( num_vals == 0 ) STOP "No arguments were given..."
@@ -20,11 +28,27 @@ PROGRAM MAIN
 	ENDDO
 	
 	WRITE( *, * ) vals(:)
-	
 	WRITE( *, * ) "Find gcd: ", FIND_GCD( vals, num_vals )
 END PROGRAM
 
-INTEGER FUNCTION GCD( m, n )
+FUNCTION FIND_GCD( nums, numsSize ) RESULT( res )
+	IMPLICIT NONE
+	INTEGER                      , INTENT(IN) :: numsSize
+	INTEGER, DIMENSION(numsSize) , INTENT(IN) :: nums
+	INTEGER                                   :: res
+	
+	INTERFACE
+		FUNCTION GCD( m, n ) RESULT( answer )
+			INTEGER, INTENT(IN) :: m, n
+			INTEGER             :: answer
+		END FUNCTION
+	END INTERFACE
+	
+	res = GCD( MINVAL( nums ), MAXVAL( nums ) )
+	RETURN
+END FUNCTION
+
+FUNCTION GCD( m, n ) RESULT( answer )
 	IMPLICIT NONE
 	INTEGER, INTENT(IN) :: m, n
 	INTEGER             :: answer, irest, ifirst
@@ -43,19 +67,5 @@ INTEGER FUNCTION GCD( m, n )
 		ENDDO
 		answer = IABS( answer )
 	ENDIF
-	
-	GCD = answer
-	RETURN
-END FUNCTION
-
-INTEGER FUNCTION FIND_GCD( nums, numsSize )
-	IMPLICIT NONE
-	INTEGER                      , INTENT(IN) :: numsSize
-	INTEGER, DIMENSION(numsSize) , INTENT(IN) :: nums
-	INTEGER                                   :: res
-	
-	! ERROR: RETURN TYPE MISMATCH????
-	res = GCD( MINVAL( nums ), MAXVAL( nums ) )
-	FIND_GCD = res
 	RETURN
 END FUNCTION
